@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="tintucModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="deteled_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="posts" Relationship="Self.FK__post__category_i__33D4B598" FromRole="category" ToRole="post" />
+  </EntityType>
+  <EntityType Name="post">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="author" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="category_id" Type="Int32" />
+    <Property Name="image_link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="deleted_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="category" Relationship="Self.FK__post__category_i__33D4B598" FromRole="post" ToRole="category" />
+    <NavigationProperty Name="silders" Relationship="Self.FK__silder__post_id__36B12243" FromRole="post" ToRole="silder" />
+  </EntityType>
+  <EntityType Name="silder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="post_id" Type="Int32" />
+    <NavigationProperty Name="post" Relationship="Self.FK__silder__post_id__36B12243" FromRole="silder" ToRole="post" />
+  </EntityType>
+  <Association Name="FK__post__category_i__33D4B598">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="post" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__silder__post_id__36B12243">
+    <End Role="post" Type="Self.post" Multiplicity="0..1" />
+    <End Role="silder" Type="Self.silder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="post">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="silder">
+        <PropertyRef Name="post_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="tintucEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="posts" EntityType="Self.post" />
+    <EntitySet Name="silders" EntityType="Self.silder" />
+    <AssociationSet Name="FK__post__category_i__33D4B598" Association="Self.FK__post__category_i__33D4B598">
+      <End Role="category" EntitySet="categories" />
+      <End Role="post" EntitySet="posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__silder__post_id__36B12243" Association="Self.FK__silder__post_id__36B12243">
+      <End Role="post" EntitySet="posts" />
+      <End Role="silder" EntitySet="silders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

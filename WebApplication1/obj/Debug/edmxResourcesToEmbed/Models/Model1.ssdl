@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="tintucModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="text" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="deteled_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="post">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="text" />
+    <Property Name="content" Type="text" Nullable="false" />
+    <Property Name="author" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="category_id" Type="int" />
+    <Property Name="image_link" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="deleted_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="silder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="post_id" Type="int" />
+  </EntityType>
+  <Association Name="FK__post__category_i__33D4B598">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="post" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__silder__post_id__36B12243">
+    <End Role="post" Type="Self.post" Multiplicity="0..1" />
+    <End Role="silder" Type="Self.silder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="post">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="silder">
+        <PropertyRef Name="post_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="tintucModelStoreContainer">
+    <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="silder" EntityType="Self.silder" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__post__category_i__33D4B598" Association="Self.FK__post__category_i__33D4B598">
+      <End Role="category" EntitySet="category" />
+      <End Role="post" EntitySet="post" />
+    </AssociationSet>
+    <AssociationSet Name="FK__silder__post_id__36B12243" Association="Self.FK__silder__post_id__36B12243">
+      <End Role="post" EntitySet="post" />
+      <End Role="silder" EntitySet="silder" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
