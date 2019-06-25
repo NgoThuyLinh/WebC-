@@ -11,5 +11,6 @@ namespace WebApplication1.Models
         public List<PostViewModel> LatestPost{ get; set; }
         public List<PostViewModel> ViewPost { get; set; }
         public List<PostViewModel> NewPost { get; set; }
+        public List<SliderViewModel> Slider { get; set; }
     }
 }

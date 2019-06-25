@@ -28,6 +28,8 @@ namespace WebApplication1.Controllers
                 image_link = x.image_link,
                 created_at = x.created_at
             }).ToList();
+            List<silder> sliders = db.silders.ToList();
+            List<SliderViewModel> slider = sliders.Select(x => new SliderViewModel { id = x.id, post_id = x.post_id, postTitle = x.post.title, postImages = x.post.image_link }).ToList();
             HomeViewModel resultdata = new HomeViewModel();
             resultdata.LatestPost = postList;
             resultdata.ListCategory = categoryList;

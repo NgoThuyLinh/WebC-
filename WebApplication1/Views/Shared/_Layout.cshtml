@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApplication1.Models.HomeViewModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,13 +79,13 @@
                                     <li class="active"><a href="index.html">Home</a></li>
                                     <li><a href="archive.html">Archive</a></li>
                                     <li>
-                                        @*<a href="#">Category</a>
+                                        <a href="#">Category</a>
                                         <ul class="dropdown">
-                                            @foreach (var item in ViewData["CategoryList"] as List<WebApplication1.Models.CategoryViewModel>) {
+                                            @foreach (var item in Model.ListCategory) {
                                                 <li><a href="index.html">@item.name</a></li>
                                             }
                                             
-                                        </ul>*@
+                                        </ul>
                                     </li>
                                     <li><a href="about.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>
